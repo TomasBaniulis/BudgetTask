@@ -3,5 +3,5 @@ package Data;
 public enum OutcomeType {
     CASH,
     CARD,
-    TRANSFER,
+    BANK_TRANSFER,
 }
