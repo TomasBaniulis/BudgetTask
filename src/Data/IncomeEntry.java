@@ -39,7 +39,7 @@ public class IncomeEntry extends Entry {
 
     @Override
     public String toString() {
-        return "IncomeEntry{" +
+        return super.toString() + "IncomeEntry{" +
                 "incomeCategory=" + incomeCategory +
                 ", incomeType=" + incomeType +
                 '}';

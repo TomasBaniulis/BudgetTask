@@ -1,4 +1,4 @@
 package Data;
 
-public record Person (String name, String surname, int age) {
+public record Person (String name, String surname) {
 }

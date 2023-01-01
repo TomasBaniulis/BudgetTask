@@ -39,7 +39,7 @@ public class OutcomeEntry extends Entry {
 
     @Override
     public String toString() {
-        return "OutcomeEntry{" +
+        return super.toString() +"OutcomeEntry{" +
                 "outcomeCategory=" + outcomeCategory +
                 ", outcomeType=" + outcomeType +
                 '}';

@@ -7,11 +7,11 @@ import java.util.Objects;
 public class Entry {
 
     private final int id;
-    private final BigDecimal sum;
-    private final LocalDate date;
-    private final Person person;
-    private final TransferStatus transferStatus;
-    private final String comment;
+    private  BigDecimal sum;
+    private  LocalDate date;
+    private  Person person;
+    private  TransferStatus transferStatus;
+    private  String comment;
 
     public Entry(int id, BigDecimal sum, LocalDate date, Person person, TransferStatus transferStatus, String comment) {
         this.id = id;
@@ -44,6 +44,26 @@ public class Entry {
 
     public String getComment() {
         return comment;
+    }
+
+    public void setSum(BigDecimal sum) {
+        this.sum = sum;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
+    }
+
+    public void setTransferStatus(TransferStatus transferStatus) {
+        this.transferStatus = transferStatus;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     @Override

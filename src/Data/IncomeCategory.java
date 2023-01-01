@@ -1,7 +1,7 @@
 package Data;
 
 public enum IncomeCategory {
-    SLALARY,
+    SALARY,
     EXTRA_MONEY,
 
 
