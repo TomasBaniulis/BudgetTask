@@ -81,19 +81,13 @@ public class Budget {
                 if (entry instanceof IncomeEntry) {
                     entry.setSum(modifySum(scanner, entry));
                     entry.setPerson(modifyPerson(scanner, entry));
-                    System.out.printf("Enter income category" + Arrays.toString(IncomeCategory.values()));
-                    String categoryLine = scanner.nextLine();
-                    IncomeCategory category = IncomeCategory.valueOf(categoryLine);
-                    ((IncomeEntry) entry).setIncomeCategory(category);
+                    ((IncomeEntry) entry).setIncomeCategory(modifyIncomeCategory(scanner,entry));
                     entry.setComment(modifyComment(scanner, entry));
                     entry.setDate(modifyDate(scanner, entry));
                 } else {
                     entry.setSum(modifySum(scanner, entry));
                     entry.setPerson(modifyPerson(scanner, entry));
-                    System.out.printf("Enter outcome category" + Arrays.toString(OutcomeCategory.values()));
-                    String categoryLine = scanner.nextLine();
-                    OutcomeCategory category = OutcomeCategory.valueOf(categoryLine);
-                    ((OutcomeEntry) entry).setOutcomeCategory(category);
+                    ((OutcomeEntry) entry).setOutcomeCategory(modifyOutcomeCategory(scanner,entry));
                     entry.setComment(modifyComment(scanner, entry));
                     entry.setDate(modifyDate(scanner, entry));
                 }
@@ -270,6 +264,40 @@ public class Budget {
                 System.out.println("wrong  entry");
             }
             return date;
+        }
+    }
+
+    OutcomeCategory modifyOutcomeCategory (Scanner scanner, Entry entry){
+        OutcomeCategory category = null;
+        while (true){
+            System.out.println("Do you want to modify outcome category  ?  YES -> [1]; NO -> [2] ");
+            String input = scanner.nextLine();
+            if (input.equals("1")){
+                category = getOutcomeCategory(scanner);
+            } else if (input.equals("2")) {
+                OutcomeEntry outcomeEntry = OutcomeEntry.class.cast(entry);
+                category = outcomeEntry.getOutcomeCategory();
+            }else {
+                System.out.println("wrong  entry");
+            } return category;
+        }
+
+    }
+
+    IncomeCategory modifyIncomeCategory (Scanner scanner, Entry entry){
+        IncomeCategory category = null;
+        while (true){
+            System.out.println("Do you want to modify outcome category  ?  YES -> [1]; NO -> [2] ");
+            String input = scanner.nextLine();
+            if (input.equals("1")){
+                category = IncomeCategory.valueOf(getIncomeCategory(scanner));
+            } else if (input.equals("2")) {
+                IncomeEntry incomeEntry = IncomeEntry.class.cast(entry);
+                category = incomeEntry.getIncomeCategory();
+            }else {
+                System.out.println("wrong  entry");
+            } return category;
+
         }
     }
 
