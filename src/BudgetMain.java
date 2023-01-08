@@ -60,47 +60,31 @@ public class BudgetMain {
         Random random = new Random();
         int id = random.nextInt(0, 200);
 
-        BigDecimal incomeSum = budget.getCorrectNumber(scanner);
-
-        Person person = budget.getPerson(scanner);
-
-        System.out.println("Enter comment:");
-        String comment = scanner.nextLine();
-
         IncomeEntry income = new IncomeEntry (
                 id,
-                incomeSum,
+                budget.getCorrectNumber(scanner),
                 LocalDate.now(),
-                person,
+                budget.getPerson(scanner),
                 TransferStatus.IN_PROGRESS,
-                comment,
+                budget.getComment(scanner),
                 IncomeCategory.valueOf(budget.getIncomeCategory(scanner)),
                 budget.getIncomeType(scanner));
 
         budget.addEntry(income);
 
-        budget.getBalanceSum();
-        //System.out.println("Balance update: " + budget.balanceSum);
+        System.out.println("Balance update: " + budget.getBalanceSum());
     }
     private void crateOutcomeEntry (Scanner scanner, Budget budget){
         Random random = new Random();
         int id = random.nextInt(0,200);
 
-        BigDecimal outcomeSum = budget.getCorrectNumber(scanner);
-
-        BigDecimal negativeSum = outcomeSum.negate();
-
-        Person person = budget.getPerson(scanner);
-
-        System.out.println("Enter comment:");
-        String comment = scanner.nextLine();
-
         OutcomeEntry outcome = new OutcomeEntry(
                 id,
-                negativeSum,
-                LocalDate.now(),person,
+                budget.getCorrectNumber(scanner).negate(),
+                LocalDate.now(),
+                budget.getPerson(scanner),
                 TransferStatus.IN_PROGRESS,
-                comment,
+                budget.getComment(scanner),
                 budget.getOutcomeCategory(scanner),
                 budget.getOutcomeType(scanner));
 
@@ -109,30 +93,20 @@ public class BudgetMain {
         System.out.println("Budget update: " + budget.balanceSum);
     }
     private void getIncomeEntry (Scanner scanner, Budget budget){
-        System.out.printf("Enter Income category: " + Arrays.toString(IncomeCategory.values()));
-        String category = scanner.nextLine();
-        IncomeCategory incomeCategory = Data.IncomeCategory.valueOf(category.toUpperCase());
+        IncomeCategory category = IncomeCategory.valueOf(budget.getIncomeCategory(scanner));
+        LocalDate localDate = budget.getDate(scanner);
 
-        System.out.printf("Enter date yyyy.MM.dd : ");
-        String date = scanner.nextLine();
-        LocalDate localDate = LocalDate.parse(date, DateTimeFormatter.ofPattern("yyyy.MM.dd"));
-
-        List <IncomeEntry> income = budget.getIncomeEntry(incomeCategory, localDate);
+        List <IncomeEntry> income = budget.getIncomeEntry(category, localDate);
         for (IncomeEntry entry: income){
             System.out.println(entry);
         }
     }
 
     private void getOutcomeEntry (Scanner scanner, Budget budget){
-        System.out.printf("Enter outcome category: " + Arrays.toString(OutcomeCategory.values()));
-        String category = scanner.nextLine();
-        OutcomeCategory outcomeCategory = Data.OutcomeCategory.valueOf(category.toUpperCase());
+        OutcomeCategory category = budget.getOutcomeCategory(scanner);
+        LocalDate localDate = budget.getDate(scanner);
 
-        System.out.printf("Enter date yyyy.MM.dd : ");
-        String date = scanner.nextLine();
-        LocalDate localDate = LocalDate.parse(date, DateTimeFormatter.ofPattern("yyyy.MM.dd"));
-
-        List <OutcomeEntry> outcome = budget.getOutcomeEntry(outcomeCategory, localDate);
+        List <OutcomeEntry> outcome = budget.getOutcomeEntry(category, localDate);
         for (OutcomeEntry entry : outcome) {
             System.out.println(entry);
         }

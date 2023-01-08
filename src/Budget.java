@@ -78,50 +78,28 @@ public class Budget {
     void modifyEntry (String id, BudgetMain main, Scanner scanner){
         for (Entry entry : entries){
             if (Integer.toString(entry.getId()).equals(id)) {
-                if (entry instanceof IncomeEntry) {
-                    System.out.println("Enter Sum");
-                    BigDecimal sum = getCorrectNumber(scanner);
-                    entry.setSum(sum);
-                    System.out.println("Enter Name");
-                    String name = scanner.nextLine();
-                    System.out.println("Enter surname");
-                    String surname = scanner.nextLine();
-                    Person person = new Person(name,surname);
-                    entry.setPerson(person);
+                if (entry instanceof IncomeEntry)
+                    entry.setSum(modifySum(scanner,entry));
+                    entry.setPerson(modifyPerson(scanner,entry));
                     System.out.printf("Enter income category" + Arrays.toString(IncomeCategory.values()));
                     String categoryLine = scanner.nextLine();
                     IncomeCategory category = IncomeCategory.valueOf(categoryLine);
                     ((IncomeEntry) entry).setIncomeCategory(category);
-                    System.out.println("Enter new comment");
-                    String newComment = scanner.nextLine();
-                    entry.setComment(newComment);
-                    System.out.println("Update date yyyy.MM.dd");
-                    String newDate = scanner.nextLine();
-                    LocalDate date = LocalDate.parse(newDate, DateTimeFormatter.ofPattern("yyyy.MM.dd"));
+                    entry.setComment(modifyComment(scanner, entry));
+                    entry.setDate(modifyDate(scanner,entry));
                 } else {
-                    System.out.println("Enter Sum");
-                    BigDecimal sum = getCorrectNumber(scanner);
-                    entry.setSum(sum);
-                    System.out.println("Enter Name");
-                    String name = scanner.nextLine();
-                    System.out.println("Enter surname");
-                    String surname = scanner.nextLine();
-                    Person person = new Person(name,surname);
-                    entry.setPerson(person);
+                    entry.setSum(modifySum(scanner,entry));
+                    entry.setPerson(modifyPerson(scanner,entry));
                     System.out.printf("Enter outcome category" + Arrays.toString(OutcomeCategory.values()));
                     String categoryLine = scanner.nextLine();
                     OutcomeCategory category = OutcomeCategory.valueOf(categoryLine);
                     ((OutcomeEntry) entry).setOutcomeCategory(category);
-                    System.out.println("Enter new coment");
-                    String newComment = scanner.nextLine();
-                    entry.setComment(newComment);
-                    System.out.println("Update date yyyy.MM.dd");
-                    String newDate = scanner.nextLine();
-                    LocalDate date = LocalDate.parse(newDate, DateTimeFormatter.ofPattern("yyyy.MM.dd"));
+                    entry.setComment(modifyComment(scanner,entry));
+                    entry.setDate(modifyDate(scanner,entry));
                 }
             }
         }
-    }
+
 
     BigDecimal getCorrectNumber (Scanner scanner) {
         while (true){
@@ -134,6 +112,19 @@ public class Budget {
                 System.out.println("Wrong entry");
             }
         }
+    }
+
+    LocalDate getDate (Scanner scanner){
+        System.out.printf("Enter date yyyy.MM.dd : ");
+        String date = scanner.nextLine();
+        LocalDate localDate = LocalDate.parse(date, DateTimeFormatter.ofPattern("yyyy.MM.dd"));
+        return localDate;
+    }
+
+    String getComment (Scanner scanner) {
+        System.out.println("Enter comment:");
+        String comment = scanner.nextLine();
+        return comment;
     }
 
      Person getPerson (Scanner scanner) {
@@ -217,6 +208,68 @@ public class Budget {
             return type;
         }
     }
+
+    BigDecimal modifySum (Scanner scanner,Entry entry) {
+        BigDecimal sum = null;
+        while (true){
+        System.out.println("Do you want to modify sum ?  YES -> [1]; NO -> [2] ");
+        String input = scanner.nextLine();
+        if (input.equals("1")){
+            sum = getCorrectNumber(scanner);
+        } else if (input.equals("2")) {
+            sum = entry.getSum();
+        }else {
+            System.out.println("wrong  entry");
+        } return sum;
+        }
+    }
+
+    Person modifyPerson (Scanner scanner, Entry entry) {
+        Person person = null;
+        while (true){
+            System.out.println("Do you want to Person  ?  YES -> [1]; NO -> [2] ");
+            String input = scanner.nextLine();
+            if (input.equals("1")){
+                person = getPerson(scanner);
+            } else if (input.equals("2")) {
+                person = entry.getPerson();
+            }else {
+                System.out.println("wrong  entry");
+            } return person;
+        }
+    }
+
+    String modifyComment (Scanner scanner, Entry entry){
+        String comment = null;
+        while (true){
+            System.out.println("Do you want to modify comment?  YES -> [1]; NO -> [2] ");
+            String input = scanner.nextLine();
+            if (input.equals("1")){
+                comment = scanner.nextLine();
+            } else if (input.equals("2")) {
+                comment = entry.getComment();
+            }else {
+                System.out.println("wrong  entry");
+            } return comment;
+        }
+    }
+
+    LocalDate modifyDate (Scanner scanner, Entry entry) {
+        LocalDate date = null;
+        while (true) {
+            System.out.println("Do you want to modify comment?  YES -> [1]; NO -> [2] ");
+            String input = scanner.nextLine();
+            if (input.equals("1")) {
+                date = getDate(scanner);
+            } else if (input.equals("2")) {
+                date = entry.getDate();
+            } else {
+                System.out.println("wrong  entry");
+            }
+            return date;
+        }
+    }
+
 
 
 }
