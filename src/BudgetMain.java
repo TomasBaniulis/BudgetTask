@@ -47,10 +47,10 @@ public class BudgetMain {
             case "2" -> crateOutcomeEntry(scanner, budget);
             case "3" -> getIncomeEntry(scanner,budget);
             case "4" -> getOutcomeEntry(scanner,budget);
-            case "5" -> System.out.println("Your balance: " + budget.balanceSum);
+            case "5" -> System.out.println("Your balance: " + budget.getBalanceSum());
             case "6" -> budget.printEntryList();
             case "7" -> budget.deleteEntry();
-            case "8" -> System.out.println("modify entry");
+            case "8" -> modifyEntry(scanner,budget);
             case "0" -> System.out.println("Exit");
             default -> System.out.println("the is no such action !!!!!");
         }
@@ -90,7 +90,7 @@ public class BudgetMain {
 
         budget.addEntry(outcome);
 
-        System.out.println("Budget update: " + budget.balanceSum);
+        System.out.println("Budget update: " + budget.getBalanceSum());
     }
     private void getIncomeEntry (Scanner scanner, Budget budget){
         IncomeCategory category = IncomeCategory.valueOf(budget.getIncomeCategory(scanner));
@@ -115,7 +115,7 @@ public class BudgetMain {
     private void modifyEntry (Scanner scanner, Budget budget) {
         System.out.println("Enter id to modify entry");
         String id = scanner.nextLine();
-       // budget.modifyEntry(id, main, scanner);
+       budget.modifyEntry(id, scanner);
     }
 
 }

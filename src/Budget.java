@@ -12,7 +12,7 @@ public class Budget {
     private List <Entry> entries = new ArrayList<>();
     private List <IncomeEntry> incomeEntries = new ArrayList<>();
     private List <OutcomeEntry> outcomeEntries = new ArrayList<>();
-     BigDecimal balanceSum;
+
 
 
     void addEntry ( Entry entry) {
@@ -49,9 +49,9 @@ public class Budget {
         BigDecimal sum = new BigDecimal(0);
         BigDecimal counter = new BigDecimal(0);
         for (Entry entry: entries){
-            sum =  counter.add(entry.getSum());
+            sum = counter.add(entry.getSum());
         }
-        return   sum;
+        return sum;
     }
 
     void printEntryList (){
@@ -75,30 +75,33 @@ public class Budget {
         }
     }
 
-    void modifyEntry (String id, BudgetMain main, Scanner scanner){
-        for (Entry entry : entries){
+    void modifyEntry (String id, Scanner scanner) {
+        for (Entry entry : entries) {
             if (Integer.toString(entry.getId()).equals(id)) {
-                if (entry instanceof IncomeEntry)
-                    entry.setSum(modifySum(scanner,entry));
-                    entry.setPerson(modifyPerson(scanner,entry));
+                if (entry instanceof IncomeEntry) {
+                    entry.setSum(modifySum(scanner, entry));
+                    entry.setPerson(modifyPerson(scanner, entry));
                     System.out.printf("Enter income category" + Arrays.toString(IncomeCategory.values()));
                     String categoryLine = scanner.nextLine();
                     IncomeCategory category = IncomeCategory.valueOf(categoryLine);
                     ((IncomeEntry) entry).setIncomeCategory(category);
                     entry.setComment(modifyComment(scanner, entry));
-                    entry.setDate(modifyDate(scanner,entry));
+                    entry.setDate(modifyDate(scanner, entry));
                 } else {
-                    entry.setSum(modifySum(scanner,entry));
-                    entry.setPerson(modifyPerson(scanner,entry));
+                    entry.setSum(modifySum(scanner, entry));
+                    entry.setPerson(modifyPerson(scanner, entry));
                     System.out.printf("Enter outcome category" + Arrays.toString(OutcomeCategory.values()));
                     String categoryLine = scanner.nextLine();
                     OutcomeCategory category = OutcomeCategory.valueOf(categoryLine);
                     ((OutcomeEntry) entry).setOutcomeCategory(category);
-                    entry.setComment(modifyComment(scanner,entry));
-                    entry.setDate(modifyDate(scanner,entry));
+                    entry.setComment(modifyComment(scanner, entry));
+                    entry.setDate(modifyDate(scanner, entry));
                 }
+            } else {
+                System.out.println("No such id");
             }
         }
+    }
 
 
     BigDecimal getCorrectNumber (Scanner scanner) {
