@@ -23,7 +23,7 @@ public class BudgetMain {
 
             main.userAction(scanner,action, budget);
 
-        } while (!action.equals("5"));
+        } while (!action.equals("0"));
 
     }
 
@@ -33,60 +33,36 @@ public class BudgetMain {
                 2. Enter outcome
                 3. Get income by category and date
                 4. Get outcome by category and date
-                5. Exit
+                5. Get balance sum
+                6. Get list of entries
+                7. Delete entry 
+                8. Modify entry
+                0. Exit
                 """);
     }
 
-    private Person getPerson (Scanner scanner) {
-        System.out.println("Enter name:");
-        String name = scanner.nextLine();
-        System.out.println("Enter surname");
-        String surname = scanner.nextLine();
-
-        return new Person(name,surname);
-    }
-
-    private BigDecimal getCorrectNumber (Scanner scanner) {
-        while (true){
-            try {
-                System.out.println("Enter sum:");
-                String line = scanner.nextLine();
-
-                return new BigDecimal(line);
-            }catch (NumberFormatException e) {
-                System.out.println("Wrong entry");
-            }
-        }
-    }
     private void userAction (Scanner scanner, String action, Budget budget){
         switch (action){
             case "1" -> createIncomeEntry(scanner, budget);
             case "2" -> crateOutcomeEntry(scanner, budget);
             case "3" -> getIncomeEntry(scanner,budget);
             case "4" -> getOutcomeEntry(scanner,budget);
-            case "5" -> System.out.println("Exit");
+            case "5" -> System.out.println("Your balance: " + budget.balanceSum);
+            case "6" -> budget.printEntryList();
+            case "7" -> budget.deleteEntry();
+            case "8" -> System.out.println("modify entry");
+            case "0" -> System.out.println("Exit");
             default -> System.out.println("the is no such action !!!!!");
         }
     }
-
     private void createIncomeEntry (Scanner scanner, Budget budget){
 
         Random random = new Random();
-        int id = random.nextInt();
+        int id = random.nextInt(0, 200);
 
-        BigDecimal incomeSum = getCorrectNumber(scanner);
+        BigDecimal incomeSum = budget.getCorrectNumber(scanner);
 
-        Person person = getPerson(scanner);
-
-        System.out.printf("Enter Income category: " + Arrays.toString(IncomeCategory.values()));
-        String category = scanner.nextLine();
-
-        System.out.println("Bank transfer? Y/N");
-        String bankTransfer = scanner.nextLine();
-        boolean isBankTransfer = "Y".equals(bankTransfer.toUpperCase());
-        if (isBankTransfer){
-            IncomeType type = IncomeType.BANK_TRANSFER;
-        } IncomeType type = IncomeType.CASH;
+        Person person = budget.getPerson(scanner);
 
         System.out.println("Enter comment:");
         String comment = scanner.nextLine();
@@ -98,41 +74,40 @@ public class BudgetMain {
                 person,
                 TransferStatus.IN_PROGRESS,
                 comment,
-                IncomeCategory.valueOf(category.toUpperCase()),
-                type);
+                IncomeCategory.valueOf(budget.getIncomeCategory(scanner)),
+                budget.getIncomeType(scanner));
 
         budget.addEntry(income);
-    }
 
+        budget.getBalanceSum();
+        //System.out.println("Balance update: " + budget.balanceSum);
+    }
     private void crateOutcomeEntry (Scanner scanner, Budget budget){
         Random random = new Random();
-        int id = random.nextInt();
+        int id = random.nextInt(0,200);
 
-        BigDecimal outcomeSum = getCorrectNumber(scanner);
+        BigDecimal outcomeSum = budget.getCorrectNumber(scanner);
 
-        Person person = getPerson(scanner);
+        BigDecimal negativeSum = outcomeSum.negate();
 
-        System.out.printf("Enter outcome category: " + Arrays.toString(OutcomeCategory.values()));
-        String category = scanner.nextLine();
-
-        System.out.printf("Enter outcome type: " + Arrays.toString(OutcomeType.values()));
-        String type = scanner.nextLine();
+        Person person = budget.getPerson(scanner);
 
         System.out.println("Enter comment:");
         String comment = scanner.nextLine();
 
         OutcomeEntry outcome = new OutcomeEntry(
                 id,
-                outcomeSum,
+                negativeSum,
                 LocalDate.now(),person,
                 TransferStatus.IN_PROGRESS,
                 comment,
-                OutcomeCategory.valueOf(category.toUpperCase()),
-                OutcomeType.valueOf(type.toUpperCase()));
+                budget.getOutcomeCategory(scanner),
+                budget.getOutcomeType(scanner));
 
         budget.addEntry(outcome);
-    }
 
+        System.out.println("Budget update: " + budget.balanceSum);
+    }
     private void getIncomeEntry (Scanner scanner, Budget budget){
         System.out.printf("Enter Income category: " + Arrays.toString(IncomeCategory.values()));
         String category = scanner.nextLine();
@@ -146,13 +121,12 @@ public class BudgetMain {
         for (IncomeEntry entry: income){
             System.out.println(entry);
         }
-
     }
 
     private void getOutcomeEntry (Scanner scanner, Budget budget){
         System.out.printf("Enter outcome category: " + Arrays.toString(OutcomeCategory.values()));
         String category = scanner.nextLine();
-        OutcomeCategory outcomeCategory = Data.OutcomeCategory.valueOf(category);
+        OutcomeCategory outcomeCategory = Data.OutcomeCategory.valueOf(category.toUpperCase());
 
         System.out.printf("Enter date yyyy.MM.dd : ");
         String date = scanner.nextLine();
@@ -162,6 +136,12 @@ public class BudgetMain {
         for (OutcomeEntry entry : outcome) {
             System.out.println(entry);
         }
+    }
+
+    private void modifyEntry (Scanner scanner, Budget budget) {
+        System.out.println("Enter id to modify entry");
+        String id = scanner.nextLine();
+       // budget.modifyEntry(id, main, scanner);
     }
 
 }

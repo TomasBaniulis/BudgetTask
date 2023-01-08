@@ -6,8 +6,8 @@ import java.util.Objects;
 
 public class IncomeEntry extends Entry {
 
-    private final IncomeCategory incomeCategory;
-    private final IncomeType incomeType;
+    private IncomeCategory incomeCategory;
+    private IncomeType incomeType;
 
     public IncomeEntry(int id, BigDecimal sum, LocalDate date, Person person, TransferStatus transferStatus,
                        String comment, IncomeCategory incomeCategory, IncomeType incomeType) {
@@ -22,6 +22,14 @@ public class IncomeEntry extends Entry {
 
     public IncomeType getIncomeType() {
         return incomeType;
+    }
+
+    public void setIncomeCategory(IncomeCategory incomeCategory) {
+        this.incomeCategory = incomeCategory;
+    }
+
+    public void setIncomeType(IncomeType incomeType) {
+        this.incomeType = incomeType;
     }
 
     @Override

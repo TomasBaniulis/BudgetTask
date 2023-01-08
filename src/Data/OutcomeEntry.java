@@ -6,8 +6,8 @@ import java.util.Objects;
 
 public class OutcomeEntry extends Entry {
 
-    private  final OutcomeCategory outcomeCategory;
-    private final OutcomeType outcomeType;
+    private OutcomeCategory outcomeCategory;
+    private OutcomeType outcomeType;
 
     public OutcomeEntry(int id, BigDecimal sum, LocalDate date, Person person, TransferStatus transferStatus,
                         String comment, OutcomeCategory outcomeCategory, OutcomeType outcomeType) {
@@ -22,6 +22,14 @@ public class OutcomeEntry extends Entry {
 
     public OutcomeType getOutcomeType() {
         return outcomeType;
+    }
+
+    public void setOutcomeCategory(OutcomeCategory outcomeCategory) {
+        this.outcomeCategory = outcomeCategory;
+    }
+
+    public void setOutcomeType(OutcomeType outcomeType) {
+        this.outcomeType = outcomeType;
     }
 
     @Override
