@@ -179,30 +179,40 @@ public class Budget {
             System.out.printf("Enter outcome category: Food -> [1]; Gas -> [2]; Taxes -> [3]; Entertainment -> [4]; Rent -> [5]; Extra -> [6]");
             String input = scanner.nextLine();
              switch (input) {
-                 case "1" -> category = OutcomeCategory.FOOD;
-                 case "2" -> category = OutcomeCategory.GAS;
-                 case "3" -> category = OutcomeCategory.TAXES;
-                 case "4" -> category = OutcomeCategory.ENTERTAINMENT;
-                 case "5" -> category = OutcomeCategory.RENT;
-                 case "6" -> category = OutcomeCategory.EXTRA;
+                 case "1" -> {category = OutcomeCategory.FOOD; return category;}
+                 case "2" -> {category = OutcomeCategory.GAS; return  category;}
+                 case "3" -> {category = OutcomeCategory.TAXES; return category;}
+                 case "4" -> {category = OutcomeCategory.ENTERTAINMENT; return category;}
+                 case "5" -> {category = OutcomeCategory.RENT; return category;}
+                 case "6" -> {category = OutcomeCategory.EXTRA; return category;}
                  default -> System.out.println("Wrong entry");
              }
-             return category;
+
         }
     }
 
-    OutcomeType getOutcomeType (Scanner scanner){
+    OutcomeType getOutcomeType (Scanner scanner) {
         OutcomeType type = null;
-        System.out.println( "Enter outcome type: Cash -> [1]; Card -> [2]; Bank transfer -> [3]");
+        System.out.println("Enter outcome type: Cash -> [1]; Card -> [2]; Bank transfer -> [3]");
         String input = scanner.nextLine();
-        while (true){
-            switch (input){
-                case "1" -> type = OutcomeType.CASH;
-                case "2" -> type = OutcomeType.CARD;
-                case "3" -> type = OutcomeType.BANK_TRANSFER;
-                default -> System.out.println("Wrong entry");
+        while (true) {
+            switch (input) {
+                case "1" -> {
+                    type = OutcomeType.CASH;
+                    return type;
+                }
+                case "2" -> {
+                    type = OutcomeType.CARD;
+                    return type;
+                }
+                case "3" -> {
+                    type = OutcomeType.BANK_TRANSFER;
+                    return type;
+                }
+                default -> {
+                    System.out.println("Wrong entry");
+                }
             }
-            return type;
         }
     }
 
