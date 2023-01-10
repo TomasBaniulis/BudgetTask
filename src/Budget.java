@@ -47,9 +47,9 @@ public class Budget {
 
      BigDecimal getBalanceSum (){
         BigDecimal sum = new BigDecimal(0);
-        BigDecimal counter = new BigDecimal(0);
+
         for (Entry entry: entries){
-            sum = counter.add(entry.getSum());
+            sum = sum.add(entry.getSum());
         }
         return sum;
     }
@@ -217,6 +217,7 @@ public class Budget {
     }
 
     BigDecimal modifySum (Scanner scanner,Entry entry) {
+        System.out.println("Entry sum:" + entry.getSum());
         BigDecimal sum = null;
         while (true){
         System.out.println("Do you want to modify sum ?  YES -> [1]; NO -> [2] ");
@@ -232,9 +233,10 @@ public class Budget {
     }
 
     Person modifyPerson (Scanner scanner, Entry entry) {
+        System.out.println("Entry person:" + entry.getPerson());
         Person person = null;
         while (true){
-            System.out.println("Do you want to Person  ?  YES -> [1]; NO -> [2] ");
+            System.out.println("Do you want to modify  Person  ?  YES -> [1]; NO -> [2] ");
             String input = scanner.nextLine();
             if (input.equals("1")){
                 person = getPerson(scanner);
@@ -247,6 +249,7 @@ public class Budget {
     }
 
     String modifyComment (Scanner scanner, Entry entry){
+        System.out.println("Entry comment:" + entry.getComment());
         String comment = null;
         while (true){
             System.out.println("Do you want to modify comment?  YES -> [1]; NO -> [2] ");
@@ -262,6 +265,7 @@ public class Budget {
     }
 
     LocalDate modifyDate (Scanner scanner, Entry entry) {
+        System.out.println("Entry date:" + entry.getDate());
         LocalDate date = null;
         while (true) {
             System.out.println("Do you want to modify comment?  YES -> [1]; NO -> [2] ");
@@ -278,6 +282,7 @@ public class Budget {
     }
 
     OutcomeCategory modifyOutcomeCategory (Scanner scanner, Entry entry){
+        System.out.println("Entry outcome category:" + ((OutcomeEntry)entry).getOutcomeCategory());
         OutcomeCategory category = null;
         while (true){
             System.out.println("Do you want to modify outcome category  ?  YES -> [1]; NO -> [2] ");
@@ -295,6 +300,7 @@ public class Budget {
     }
 
     IncomeCategory modifyIncomeCategory (Scanner scanner, Entry entry){
+        System.out.println("Entry income category:" + ((IncomeEntry)entry).getIncomeCategory());
         IncomeCategory category = null;
         while (true){
             System.out.println("Do you want to modify outcome category  ?  YES -> [1]; NO -> [2] ");

@@ -30,7 +30,7 @@ public class BudgetMain {
     private void menu(){
         System.out.println("""
                 1. Enter income
-                2. Enter outcome
+                2. Enter outcome1
                 3. Get income by category and date
                 4. Get outcome by category and date
                 5. Get balance sum
